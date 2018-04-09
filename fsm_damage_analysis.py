@@ -15,7 +15,7 @@ import numpy as np
 from numpy.lib.recfunctions import append_fields
 
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 
 DEFAULT_CMAP = 'inferno'
