@@ -1,3 +1,4 @@
+fsm_effective_stress~=1.0
 fsm_load_modal_composites~=1.0
 matplotlib~=2.1
 numpy~=1.11
