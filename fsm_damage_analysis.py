@@ -6,6 +6,7 @@ from timeit import default_timer as timer
 import matplotlib
 matplotlib.use('Agg') # Fixes weird segfaults, see http://matplotlib.org/faq/howto_faq.html#matplotlib-in-a-web-application-server
 
+from fsm_effective_stress import compute_damage, compute_effective_stress
 from fsm_load_modal_composites import load_modal_composites
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
@@ -93,8 +94,11 @@ def analyze_models(viscoelastic_model_file, elastic_model_file, report_file, **f
         elastic, column_units, column_descriptions = load_modal_composites(elastic_model_file, **filters)
         viscoelastic, _, _ = load_modal_composites(viscoelastic_model_file, **filters)
 
-        D = 1 - (viscoelastic['omega'] / elastic['omega']) ** 2
-        sigma_eff = viscoelastic['sigma_cr'] * (elastic['omega'] / viscoelastic['omega']) ** 2
+        omega = elastic['omega']
+        omega_d = viscoelastic['omega']
+        sigma_d = viscoelastic['sigma_cr']
+        D = compute_damage(omega, omega_d)
+        sigma_eff = compute_effective_stress(omega, omega_d, sigma_d)
 
         modal_composites = append_fields(elastic, names=['D', 'sigma_eff'], data=[D, sigma_eff], usemask=False)
         plot_modal_composite(modal_composites, column_units, column_descriptions)
