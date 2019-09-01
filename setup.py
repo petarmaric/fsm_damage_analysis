@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='fsm_damage_analysis',
-    version='1.0.1',
+    version='1.0.2',
     url='https://github.com/petarmaric/fsm_damage_analysis',
     license='BSD',
     author='Petar Maric',
